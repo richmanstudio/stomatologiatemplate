@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmileCare | Стоматология премиум-класса</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Глобальные стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        :root {
+            --primary-blue: #0077CC;
+            --deep-blue: #0055AA;
+            --light-blue: #E6F2FF;
+            --pure-white: #FFFFFF;
+            --off-white: #F8F9FA;
+            --dark-gray: #1D1D1F;
+            --medium-gray: #86868B;
+            --light-gray: #D2D2D7;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background-color: var(--pure-white);
+            color: var(--dark-gray);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Шапка в стиле Apple */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 8px;
+            color: var(--deep-blue);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-size: 16px;
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+            transition: var(--transition);
+        }
+
+        nav a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary-blue);
+            transition: var(--transition);
+        }
+
+        nav a:hover:after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .cta-button {
+            background-color: var(--primary-blue);
+            color: var(--pure-white);
+            padding: 10px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .cta-button:hover {
+            background-color: var(--deep-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 119, 204, 0.2);
+        }
+
+        /* Hero секция */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 119, 204, 0.05) 0%, rgba(255, 255, 255, 0.5) 100%);
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            margin-bottom: 30px;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            max-width: 900px;
+            color: var(--dark-gray);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s forwards 0.3s;
+        }
+
+        .hero p {
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            color: var(--medium-gray);
+            max-width: 700px;
+            margin-bottom: 50px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s forwards 0.6s;
+        }
+
+        .hero .cta-button {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s forwards 0.9s;
+            padding: 16px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+        }
+
+        /* Секции с "воздухом" */
+        section {
+            padding: 120px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--dark-gray);
+        }
+
+        .section-header p {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            color: var(--medium-gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Услуги */
+        .services {
+            background-color: var(--off-white);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .service-card {
+            background: var(--pure-white);
+            border-radius: 20px;
+            padding: 50px 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            transition: var(--transition);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .service-icon {
+            font-size: 50px;
+            color: var(--primary-blue);
+            margin-bottom: 25px;
+        }
+
+        .service-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--dark-gray);
+        }
+
+        .service-card p {
+            color: var(--medium-gray);
+            margin-bottom: 20px;
+        }
+
+        /* О нас */
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .about-text h3 {
+            font-size: 32px;
+            margin-bottom: 25px;
+            color: var(--dark-gray);
+        }
+
+        .about-text p {
+            color: var(--medium-gray);
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+
+        /* Преимущества */
+        .benefits {
+            background-color: var(--light-blue);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .benefit-item {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .benefit-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+
+        .benefit-item h4 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--dark-gray);
+        }
+
+        .benefit-item p {
+            color: var(--medium-gray);
+        }
+
+        /* Отзывы */
+        .testimonials-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .testimonial {
+            background: var(--pure-white);
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        .testimonial-text {
+            font-size: 20px;
+            font-style: italic;
+            color: var(--dark-gray);
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .client-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .client-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: var(--light-gray);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--pure-white);
+            font-size: 30px;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary-blue), var(--deep-blue));
+        }
+
+        .client-name {
+            font-weight: 600;
+            font-size: 18px;
+            color: var(--dark-gray);
+        }
+
+        .client-position {
+            color: var(--medium-gray);
+            font-size: 16px;
+        }
+
+        /* Контакты */
+        .contact {
+            background-color: var(--off-white);
+        }
+
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 60px;
+        }
+
+        .contact-info h3 {
+            font-size: 28px;
+            margin-bottom: 25px;
+            color: var(--dark-gray);
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+        }
+
+        .contact-icon {
+            font-size: 24px;
+            color: var(--primary-blue);
+            margin-right: 15px;
+            min-width: 30px;
+        }
+
+        .contact-text h4 {
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: var(--dark-gray);
+        }
+
+        .contact-text p {
+            color: var(--medium-gray);
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 25px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: 10px;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 2px rgba(0, 119, 204, 0.1);
+        }
+
+        .contact-form textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        /* Подвал */
+        footer {
+            background-color: var(--dark-gray);
+            color: var(--pure-white);
+            padding: 80px 0 40px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+
+        .footer-column h4 {
+            font-size: 20px;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .footer-column h4:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary-blue);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            color: var(--light-gray);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--pure-white);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--pure-white);
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary-blue);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--medium-gray);
+            font-size: 14px;
+        }
+
+        /* Анимации */
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                gap: 25px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+            }
+            
+            nav ul {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                background: none;
+                border: none;
+                font-size: 24px;
+                color: var(--dark-gray);
+                cursor: pointer;
+            }
+            
+            section {
+                padding: 80px 0;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .testimonial {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка сайта в стиле Apple -->
+    <header>
+        <div class="logo">
+            <i class="fas fa-tooth"></i>
+            <span>SmileCare</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#services">Услуги</a></li>
+                <li><a href="#about">О нас</a></li>
+                <li><a href="#benefits">Преимущества</a></li>
+                <li><a href="#testimonials">Отзывы</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+        </nav>
+        <div class="nav-actions">
+            <a href="tel:+78001234567" class="contact-link">
+                <i class="fas fa-phone"></i>
+            </a>
+            <a href="#contact" class="cta-button">Записаться</a>
+        </div>
+    </header>
+
+    <!-- Hero секция -->
+    <section class="hero">
+        <h1>Идеальная улыбка начинается здесь</h1>
+        <p>Современная стоматология с заботой о вашем комфорте и здоровье. Инновационные технологии и индивидуальный подход.</p>
+        <a href="#contact" class="cta-button">Записаться на прием</a>
+    </section>
+
+    <!-- Услуги -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>Наши услуги</h2>
+                <p>Предоставляем полный спектр стоматологических услуг с использованием передовых технологий</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-tooth"></i>
+                    </div>
+                    <h3>Терапевтическая стоматология</h3>
+                    <p>Лечение кариеса, пульпита, периодонтита с применением микроскопа</p>
+                    <a href="#" class="cta-button">Подробнее</a>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-teeth"></i>
+                    </div>
+                    <h3>Ортодонтия</h3>
+                    <p>Исправление прикуса, эстетические брекеты, элайнеры</p>
+                    <a href="#" class="cta-button">Подробнее</a>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3>Протезирование</h3>
+                    <p>Коронки, виниры, мостовидные протезы, полные съемные протезы</p>
+                    <a href="#" class="cta-button">Подробнее</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- О нас -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>О нашей клинике</h2>
+                <p>Современный подход к стоматологии с акцентом на комфорт пациента</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text fade-in">
+                    <h3>Стоматология нового поколения</h3>
+                    <p>SmileCare - это команда высококвалифицированных специалистов, которые постоянно совершенствуют свои навыки и внедряют инновационные технологии в ежедневную практику.</p>
+                    <p>Наша клиника оснащена современным оборудованием, что позволяет нам проводить диагностику и лечение с максимальной точностью и комфортом для пациента.</p>
+                    <p>Мы создали пространство, где каждый пациент чувствует себя комфортно и защищенно, а лечение проходит без стресса и боли.</p>
+                    <a href="#contact" class="cta-button">Посетить клинику</a>
+                </div>
+                <div class="about-image fade-in">
+                    <!-- Заглушка для изображения -->
+                    <div style="width:100%; height:400px; background: linear-gradient(135deg, var(--light-blue), var(--pure-white)); display:flex; align-items:center; justify-content:center; color: var(--primary-blue); font-size: 24px; font-weight: bold;">
+                        <i class="fas fa-clinic-medical" style="font-size: 48px; margin-right: 15px;"></i>
+                        Фото современной клиники
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Преимущества -->
+    <section id="benefits" class="benefits">
+        <div class="container">
+            <div class="section-header">
+                <h2>Наши преимущества</h2>
+                <p>Почему пациенты выбирают нашу стоматологическую клинику</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-item fade-in">
+                    <div class="benefit-number">15+</div>
+                    <h4>Лет опыта</h4>
+                    <p>Наша команда имеет многолетний опыт успешной работы</p>
+                </div>
+                <div class="benefit-item fade-in">
+                    <div class="benefit-number">5000+</div>
+                    <h4>Довольных пациентов</h4>
+                    <p>Мы помогли тысячам людей обрести здоровую улыбку</p>
+                </div>
+                <div class="benefit-item fade-in">
+                    <div class="benefit-number">98%</div>
+                    <h4>Успешных процедур</h4>
+                    <p>Высокий процент успешных результатов лечения</p>
+                </div>
+                <div class="benefit-item fade-in">
+                    <div class="benefit-number">24/7</div>
+                    <h4>Поддержка</h4>
+                    <p>Мы всегда на связи для решения ваших вопросов</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Отзывы -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>Отзывы пациентов</h2>
+                <p>Что говорят наши пациенты о лечении в SmileCare</p>
+            </div>
+            <div class="testimonials-slider">
+                <div class="testimonial fade-in">
+                    <p class="testimonial-text">"Я очень боялась стоматологов, но в SmileCare смогла преодолеть свой страх. Врачи объясняют каждый шаг, лечение проходит безболезненно. Теперь я регулярно посещаю клинику и доверяю им свою улыбку!"</p>
+                    <div class="client-info">
+                        <div class="client-avatar">АИ</div>
+                        <div class="client-name">Анна Иванова</div>
+                        <div class="client-position">Пациент клиники</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Записаться на прием</h2>
+                <p>Свяжитесь с нами, чтобы получить консультацию или записаться на прием</p>
+            </div>
+            <div class="contact-wrapper">
+                <div class="contact-info fade-in">
+                    <h3>Контактная информация</h3>
+                    <div class="contact-detail">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Адрес</h4>
+                            <p>ул. Здоровья, 25, Москва</p>
+                        </div>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Телефон</h4>
+                            <p>+7 (800) 123-45-67</p>
+                        </div>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Email</h4>
+                            <p>info@smilecare.ru</p>
+                        </div>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Часы работы</h4>
+                            <p>Пн-Пт: 9:00 - 21:00<br>Сб-Вс: 10:00 - 18:00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form fade-in">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" placeholder="Ваше имя" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" placeholder="Ваш телефон" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Ваш Email">
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Сообщение"></textarea>
+                        </div>
+                        <button type="submit" class="cta-button">Отправить заявку</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>SmileCare</h4>
+                    <p>Современная стоматологическая клиника, предоставляющая полный спектр услуг с использованием передовых технологий и индивидуальным подходом к каждому пациенту.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Услуги</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Терапевтическая стоматология</a></li>
+                        <li><a href="#">Ортодонтия</a></li>
+                        <li><a href="#">Протезирование</a></li>
+                        <li><a href="#">Имплантация</a></li>
+                        <li><a href="#">Отбеливание</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Быстрые ссылки</h4>
+                    <ul class="footer-links">
+                        <li><a href="#services">Услуги</a></li>
+                        <li><a href="#about">О нас</a></li>
+                        <li><a href="#benefits">Преимущества</a></li>
+                        <li><a href="#testimonials">Отзывы</a></li>
+                        <li><a href="#contact">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Контакты</h4>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> ул. Здоровья, 25, Москва</li>
+                        <li><i class="fas fa-phone"></i> +7 (800) 123-45-67</li>
+                        <li><i class="fas fa-envelope"></i> info@smilecare.ru</li>
+                        <li><i class="fas fa-clock"></i> Пн-Пт: 9:00-21:00</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 SmileCare. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Анимация при скролле
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('appear');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            });
+            
+            fadeElements.forEach(element => {
+                observer.observe(element);
+            });
+
+            // Плавная прокрутка для якорных ссылок
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Изменение шапки при скролле
+            const header = document.querySelector('header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.style.padding = '15px 40px';
+                    header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.05)';
+                } else {
+                    header.style.padding = '20px 40px';
+                    header.style.boxShadow = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
